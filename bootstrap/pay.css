@@ -1,0 +1,88 @@
+h1, h4{
+	color: cyan;
+}
+.jumbotron{
+	padding-top: 10px;
+	padding-bottom: 5px;
+	font-family: cursive;
+	background: white;
+	margin-bottom: 0;
+
+}
+
+.jumbotron .text{
+	font-size: 25px;
+	font-weight: bold;
+	color:#03123F;
+}
+
+.sign{
+	padding-top: 8px;
+	text-align: right;
+	font-size: 18px;
+}
+.sign a:hover {
+	text-decoration: none;
+	color:#000000;
+}
+
+.navbar-inverse{
+	border-radius: 0;
+	margin-bottom: 0;	
+}
+nav li{
+	padding-right: 50px;
+	font-size: 18px;
+
+}
+ul#menu li a{
+	color: white;
+}
+ul#menu li a:hover{
+	color:yellow;
+	cursor: pointer;
+
+}
+
+#front-image{
+	width: 100%;
+	height: auto;
+	background-image: url(images/it1.1.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	text-align: center;
+	line-height: 520px;
+	font-size: 100px;
+	color:#fff;
+	font-family: tahoma;
+	font-weight: bolder;
+}
+
+#body1 h1, #body1 h3{
+	font-family: tahoma;
+	color:cyan;
+}
+
+#body1 img{
+	width: 100%;
+	height: 180px;
+}
+
+#row11, #row12, #row13, #row14{
+	padding: 10px;
+}
+
+#row11:hover, #row12:hover, #row13:hover, #row14:hover{
+	color:white;
+	background-color:#03123F;
+	transition: 1s
+}
+
+img#image2{
+	width: 100%;
+	height: 600px;
+}
+
+
+
+
