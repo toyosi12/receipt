@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Receipt</title>
+	<link type="text/css" href="bootstrap/css/bootstrap.css" rel="stylesheet" />
+	
+	<style>
+	body{
+		background-image: url("images/account.png");
+	}
+	.glyphicon-plus{
+		color: green;
+	}
+	.glyphicon-print{
+		color: #00ff00;
+		font-size: 30px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+	.glyphicon-print:hover{
+		cursor: pointer;
+	}
+	.glyphicon-edit{
+		color: #000000;
+	}
+	.table{
+		background:#eee;
+		color:#000000;
+		background:none;
+	}
+	table.table th.alert{
+		padding-top: 15px;
+		padding-bottom: 15px;
+		text-align: center;
+		font-size: 36px;
+	}
+	
+	.table input{
+		width: 100%;
+		color: #000000;
+		font-weight: bold;
+	}
+	#customerName1, #attendantName1{
+		border-width: 0 0 1px 0;
+		border-color: #000000;
+		text-align: center;
+		font-size: 20px;
+		background: none;
+		width: 70%;
+		color:#f1f1f1;
+
+	}
+
+	</style>
+</head>
+<body>
+<form class="form">
+<table class="table table-bordered" id="myTable">
+<thead>
+<tr id="tHead">
+<th class="alert" style="background:#5CB85C" colspan="7" id="theClient"><span class="glyphicon glyphicon-edit"></span>&nbsp;<span style="color: #ff0000">eazy</span>Receipt</th>
+</tr>
+<tr>
+	<th><span class="glyphicon glyphicon-plus" id="add"></span>&nbsp;&nbsp;<span class="glyphicon glyphicon-minus" id="subtr"></span></th>
+	<th>S/N</th>
+	<th>DESCRIPTION</th>
+	<th>QUANTITY</th>
+	<th>PRICE(N)</th>
+	<th>TOTAL(N)</th>
+	<th>EDIT</th>
+</tr>
+</thead>
+<tbody>
+
+</tbody>
+</table>
+<div class="container-fluid">
+<div class="col-md-4">
+</div>
+<div class="col-md-4" style="text-align: right">
+	
+</div>
+<div class="col-md-4" style="font-weight: bolder; color: #851316">
+	<div class="form-group grandGroup">
+		<label for="grand">Grand Total(N):</label>
+		<input type="text" readonly id="grand" class="form-control" name="grand" />
+	</div>
+	<div class="form-group totGroup">
+		<label for="tAmountPaid">Total Amount Paid(N):</label>
+		<input type="text" readonly id="tAmountPaid" name="tAmountPaid" class="form-control" />
+	</div>
+	<div class="form-group changeGroup">
+		<label for="change">Change(N):</label>
+		<input type="text" readonly id="change" name="change" class="form-control" />
+	</div>
+	<div class="form-group guideGroup">
+		<span class="glyphicon glyphicon-print" style="margin-right: 5%"></span>
+		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Quick guide</button>
+		<input type="button" class="btn btn-warning" value="Clear Data" onclick="clearFunc()">
+	</div>
+	
+</div>
+<div class="row theRow" style="text-align: center; color: #000000;">
+	<div class="col-md-6">
+		<input type="text" id="customerName1">
+		<p style="text-align: center">Customer's Name and Signature</p>
+	</div>
+	<div class="col-md-6">
+		<input type="text" id="attendantName1">
+		<p style="text-align: center">Attendant's Name and signature</p>
+	</div>
+</div>
+
+</div>
+
+<div id="userModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Eazy Receipt</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form"> 
+					<div class="form-group">
+						<label for="customer">Customer's Name:</label>
+						<input class="form-control input-lg" type="text" placeholder="Enter customer's name here" name="customer" id="customerName2">
+					</div>
+					<div class="form-group">
+						<label for="attendant">Attendant's Name:</label>
+						<input class="form-control input-lg" type="text" placeholder="Enter attendant's name here" name="attendant" id="attendantName2" value="John Doe">
+					</div>
+					<div class="form-group">
+						<label for="attendant">Total Amount Recieved(N):</label>
+						<input class="form-control input-lg" type="text" placeholder="Enter amount here" name="attendant" id="amountRecieved">
+					</div>
+					<div class="input-group">
+						<input class="form-control input-lg has-feedback" type="text" placeholder="Enter amount here" name="attendant" id="client" value="SHOPRITE" style="color:#ff0000" readonly>
+						<span class="input-group-addon" title="edit" style="cursor: pointer" id="clientEdit"><i class="glyphicon glyphicon-pencil"></i></span>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			<button type="button" data-dismiss="modal" class="btn btn-success btn-lg" onclick="modalData()">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Quick Guide</h4>
+			</div>
+			<div class="modal-body">
+			<p>Click '+' or press 'enter' key to create a new row</p>
+			<p>Click '-' or press '\' key to delete a row</p>
+			<p>Press 'tab' key to move to the next box or click on the required box</p>
+			<p>Click the 'pencil' sign to edit a field</p>
+			<p style="color: #ff0000">DO NOT LEAVE ANY BOX EMPTY BEFORE CREATING A NEW ROW</p>
+			</div>
+			<div class="modal-footer">
+			<button type="button" data-dismiss="modal" class="btn btn-danger">close</button>
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+<script type="text/javascript" src="jquery-3.1.1.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+	<script>
+	var n = 0;
+	$(window).on("load",function(){
+		$("#userModal").modal('show');
+		$("#clientEdit").click(function(){
+			if($(this).find("i").attr("class")=="glyphicon glyphicon-pencil"){
+			$("#client").removeAttr("readonly");
+			$(this).find("i").removeClass("glyphicon-pencil");
+			$(this).find("i").addClass("glyphicon-floppy-disk");
+			$("#client").focus();
+			}else if($(this).find("i").attr("class")=="glyphicon glyphicon-floppy-disk"){
+				$("#client").attr("readonly","readonly");
+				$(this).find("i").removeClass("glyphicon-floppy-disk");
+				$(this).find("i").addClass("glyphicon-pencil")
+			}
+		})
+	})
+
+		function modalData(){
+			var custName = $("#customerName2").val();
+			$("#customerName1").val(custName);
+			var attName = $("#attendantName2").val();
+			$("#attendantName1").val(attName);
+			var tAmount = $("#amountRecieved").val();
+			$("#tAmountPaid").val(tAmount);
+		}
+		function createNewRow(){
+				n++;
+					$('table input').prop('disabled', true);
+					$('table').append('<tr><td></td><td id="sn">'+n+'</td><td><input type="text" id="desc" class="descClass"></td><td><input type="text" id="quant"></td><td><input type="text" id="price"></td><td><input type="text" id="total" readonly="readonly" class="totalClass"></td><td><span class="glyphicon glyphicon-pencil" id="pencil"></span><span class="glyphicon glyphicon-trash" id="deleteIt"></span></td></tr>');
+					$("table input").addClass("form-control");
+					$(".descClass").focus();
+			}	
+
+		function deleteRow(){
+				$('tbody tr').last().remove();
+				n-=1;
+				calcTotAfterRowDel();
+				
+		}
+		function calcTotAfterRowDel(){
+			var overallTotal2 = 0;
+			var change2 = 0;
+			$('.totalClass').each(function(){
+					if($(this).val()==""){$(this).val()=0}
+					overallTotal2+=parseFloat($(this).val());
+				});
+				$('#grand').val(overallTotal2);
+				change2 = $('#tAmountPaid').val()-overallTotal2;
+					if(change2<0){
+						$("#change").css("color","ff0000");
+					}else{
+						$("#change").css("color","#000000");
+					}
+				$('#change').val(change2);
+			if(n==-1){
+				n=0;
+			}
+		}
+			$(document).ready(function(){
+				$('#add').click(function(){
+					if($("table input.form-control").last().val()!==""){
+					createNewRow();
+				}else{
+					alert("Please fill the empty box(es)")
+				}
+					});
+
+					$(document).on('click', '#pencil',function(){
+				if($(this).attr("class") == "glyphicon glyphicon-pencil"){
+					$(this).closest("tr").find("input").prop("disabled", false)
+				}else{
+					$(this).closest("tr").find("input").prop("disabled", true)
+				}
+				$(this).toggleClass("glyphicon-floppy-disk");
+			});	
+				
+			$('#myTable').on('input','#price',function(){
+				var overallTotal = 0;
+				var change = 0;
+				var priceValue = $(this).val();
+				var quantValue = $(this).closest('tr').find('#quant').val();
+				var product = priceValue*quantValue;
+				$(this).closest('tr').find('#total').val(product);
+				$('#myTable #total').each(function(){
+				var currentTotal = $(this).val();
+				if(currentTotal==""){currentTotal=0;}
+				overallTotal+=parseFloat(currentTotal);
+				if(isNaN(overallTotal)){
+					overallTotal = "Expecting a numer on row "+n;
+				}
+				change = $("#tAmountPaid").val()-overallTotal;
+				if(change<0){
+					$("#change").css("color","#ff0000")
+				}else{
+					$("#change").css("color","#000000")
+				}
+				
+			});
+				$('#grand').val(overallTotal);
+				$('#change').val(change)
+			});
+			$('#subtr').click(function(){
+				deleteRow();	
+
+			});
+			$(".glyphicon-print").click(function(){
+				//$("span.glyphicon-plus,.glyphicon-minus").remove();
+				$(".changeGroup, .totGroup, .guideGroup").remove();
+				$(".grandGroup").css({float:"right"});
+				$(".theRow").css({clear:'both'});
+				$("#customerName1, #attendantName1").css({width:'50%'});
+				$("input").css({borderWidth:"0px"});
+				$("#theClient").html($("#client").val());
+				//$("#theClient").html("#client".val());
+				 $("tr").not("#tHead").each(function(){
+				 	$(this).find("td, th").last().remove();
+				 	$(this).find("td, th").first().remove();
+				 })
+					window.print();
+				});
+			$(document).on('click','#deleteIt', function(){
+					$(this).closest("tr").nextAll("tr").each(function(){
+						var sn = $(this).find("#sn").html();
+						$(this).find("#sn").html(sn-1)
+					});
+					$(this).closest("tr").remove();
+					//$("#grand").val($("#grand").val()-$(this).closest("tr").find("#total").val());
+					calcTotAfterRowDel();
+					n--;
+				});
+
+				document.addEventListener("keydown",keyHandler,false);
+			});
+		
+
+			function keyHandler(e){
+				if(e.keyCode==13){
+					if($("table input.form-control").last().val()!==""){
+						createNewRow();
+					}else{
+						alert("Please fill the empty box(es)")
+					}
+
+				}
+				if(e.keyCode==220){
+						deleteRow();
+						
+					}
+					
+			}
+			function clearFunc(){
+				location.reload();
+			}
+	</script>
+</body>
+</html>
